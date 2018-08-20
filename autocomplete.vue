@@ -14,8 +14,10 @@ export default {
       for (let ind = 0; ind < child.length; ind++) {
         // console.log(child[ind])
         if (child[ind].nodeName === 'SPAN') {
-          newDomList.push(child[ind].innerText)
           if (child[ind].innerText === ' ') continue
+          newDomList.push(child[ind].innerText)
+          // 去除首尾空格
+          const clear = child[ind].innerText.replace(/(^\s*)|(\s*$)/g, "")
           newHtml += `<span>&nbsp;</span><span class="content">${child[ind].innerText}</span><span>&nbsp;</span>`
         } else if (child[ind].nodeName === '#text') {
           newDomList.push(child[ind].textContent)
