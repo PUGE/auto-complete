@@ -11,7 +11,7 @@ yarn add autocomplete-puge
 ```
 <template>
   <div>
-    <Autocomplete @change="inputChange"></Autocomplete>
+    <Autocomplete v-model="list"></Autocomplete>
   </div>
 </template>
 
@@ -21,17 +21,11 @@ export default {
   components: {
     Autocomplete
   },
-  methods: {
-    inputChange (e) {
-      console.log(e)
+  data () {
+    return {
+      list: ['abc']
     }
   }
 }
 </script>
 ```
-
-## 事件
-
-| 参数        | 含义         | 类型  |
-| ----------- |:-------------:| -----:|
-|change| 输入内容发生改变 | event |

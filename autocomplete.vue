@@ -5,6 +5,9 @@
 <script>
 
 export default {
+  props: {
+    value: Array
+  },
   methods: {
     blur (e) {
       let newDomList = []
@@ -15,18 +18,26 @@ export default {
         // console.log(child[ind])
         if (child[ind].nodeName === 'SPAN') {
           if (child[ind].innerText === ' ') continue
-          newDomList.push(child[ind].innerText)
           // 去除首尾空格
           const clear = child[ind].innerText.replace(/(^\s*)|(\s*$)/g, "")
-          newHtml += `<span>&nbsp;</span><span class="content">${child[ind].innerText}</span><span>&nbsp;</span>`
+          newDomList.push(clear)
+          // console.log(clear)
+          newHtml += `<span>&nbsp;</span><span class="content">${clear}</span><span>&nbsp;</span>`
         } else if (child[ind].nodeName === '#text') {
           newDomList.push(child[ind].textContent)
           newHtml += `<span>&nbsp;</span><span class="content">${child[ind].textContent}</span><span>&nbsp;</span>`
         }
       }
       e.target.innerHTML = newHtml
-      this.$emit('change', newDomList)
+      this.$emit('input', newDomList)
     }
+  },
+  mounted () {
+    let newHtml = ''
+    for (let ind = 0; ind < this.value.length; ind++) {
+      newHtml += `<span>&nbsp;</span><span class="content">${this.value[ind]}</span><span>&nbsp;</span>`
+    }
+    this.$el.innerHTML = newHtml
   }
 }
 </script>
